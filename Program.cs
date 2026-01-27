@@ -53,6 +53,43 @@ namespace _26._01_пракимческая_работа
                 }
 
                 Console.WriteLine($"\nВ файле найдено строк: {lineCount}");
+
+              //2 задание дневник настроений
+
+                string FileName = "C:\\Users\\242416\\Desktop\\Документы\\Дневник.txt";
+
+                Console.WriteLine("ДНЕВНИК НАСТРОЕНИЙ");
+                Console.WriteLine($"Сегодня {DateTime.Now}");
+
+                // Ввод данных
+                Console.Write("Оцените настроение (1-5): ");
+                string mood = Console.ReadLine();
+
+                Console.Write("Введите комментарий: ");
+                string comment = Console.ReadLine();
+
+                string record = $"[{DateTime.Now}] Настроение: {mood}/5 - {comment}";
+
+                // Запись в файл
+                using (StreamWriter writer = new StreamWriter(fileName, true))
+                {
+                    writer.WriteLine(record);
+                }
+
+                Console.WriteLine("Запись добавлена!");
+
+                // Динамический массив
+                List<string> lines = new List<string>();
+
+                // Чтение файла в List
+                using (StreamReader reader = new StreamReader(fileName))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        lines.Add(line);
+                    }
+                }
             
         }
     }
