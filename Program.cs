@@ -71,7 +71,7 @@ namespace _26._01_пракимческая_работа
                 string record = $"[{DateTime.Now}] Настроение: {mood}/5 - {comment}";
 
                 // Запись в файл
-                using (StreamWriter writer = new StreamWriter(fileName, true))
+                using (StreamWriter writer = new StreamWriter(FileName, true))
                 {
                     writer.WriteLine(record);
                 }
@@ -90,79 +90,67 @@ namespace _26._01_пракимческая_работа
                         lines.Add(line);
                     }
                 }
-             // Вывод последних 3 записей
-            Console.WriteLine("\Последние 3 записи:");
+           Console.WriteLine("\nПоследние 3 записи:");
 
-            int start = lines.Count - 3;
-            if (start < 0)
-                start = 0;
+            // Вывод 3 записей: определяем, сколько записей у нас есть
+            int total = lines.Count;
+            Console.WriteLine($"Всего записей в дневнике: {total}");
 
-            int number = 1;
-            for (int i = lines.Count - 1; i >= start; i--)
+
+            // определяем, сколько записей показывать (не более 3)
+            int recordsToShow = 3;
+            if (total < 3)
             {
-                Console.WriteLine($"{number}. {lines[i]}");
-                number++;
+                recordsToShow = total;  // Если меньше 3, показываем все
+            }
+
+            Console.WriteLine($"Показываем {recordsToShow} последних записей:");
+            Console.WriteLine("(самые новые - сверху)");
+
+            // 3. Выводим в обратном порядке
+            for (int i = 0; i < recordsToShow; i++)
+
+            {
+                // Рассчитываем номер записи для вывода
+                int recordNumber = recordsToShow - i;  // 3, 2, 1 для отображения
+   
+                // Рассчитываем индекс в списке (идем с конца)
+                int listIndex = total - 1 - i;  // Самые новые = большие индексы
+                Console.WriteLine($"{recordNumber}. {lines[listIndex]}");
             }
 
 
 
             //4 задание конвертер текста
-
-
             string fileSource = "C:\\Users\\242416\\Desktop\\Документы\\исходный.txt";
-
             string fileResult = "C:\\Users\\242416\\Desktop\\Документы\\обработанный.txt";
 
-
             // Читаем файл
-
             string[] lines = File.ReadAllLines(fileSource);
-
             int countBefore = lines.Length;
 
-
             // Обработка
-
             List<string> result = new List<string>();
-
             int num = 1;
-
             for (int i = 0; i < lines.Length; i++)
-
             {
-   
                 if (lines[i].Trim() != "")
-    
                 {
-        
                     result.Add($"{num}. {lines[i].ToUpper()}");
-        
                     num++;
-    
                 }
-
             }
-
-
             // Сохраняем
-
             File.WriteAllLines(fileResult, result);
 
-
             // Статистика
-
             Console.WriteLine($"Строк до: {countBefore}");
-
             Console.WriteLine($"Строк после: {result.Count}");
-
             Console.WriteLine("\nПервые 3 строки:");
 
             for (int i = 0; i < 3 && i < result.Count; i++)
-
             {
-
                 Console.WriteLine(result[i]);
-
             }
             
         }
