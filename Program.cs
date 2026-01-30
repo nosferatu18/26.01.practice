@@ -150,7 +150,6 @@ namespace _26._01_пракимческая_работа
                 countAfter = result.Count;  // Сколько строк осталось после обработки
             }
 
-            // Сохраняем через StreamWriter
             using (StreamWriter writer = new StreamWriter(fileResult))
             {
                 foreach (string processedLine in result)
