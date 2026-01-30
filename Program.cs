@@ -82,7 +82,7 @@ namespace _26._01_пракимческая_работа
                 List<string> lines = new List<string>();
 
                 // Чтение файла в List
-                using (StreamReader reader = new StreamReader(fileName))
+                using (StreamReader reader = new StreamReader(FileName))
                 {
                     string line;
                     while ((line = reader.ReadLine()) != null)
@@ -121,34 +121,53 @@ namespace _26._01_пракимческая_работа
 
 
 
-            //4 задание конвертер текста
+            // 4 задание конвертер текста
             string fileSource = "C:\\Users\\242416\\Documents\\4задание\\исходный.txt";
             string fileResult = "C:\\Users\\242416\\Documents\\4задание\\обработанный.txt";
 
-            // Читаем файл
-            string[] lines = File.ReadAllLines(fileSource);
-            int countBefore = lines.Length;
-
-            // Обработка
+            int countBefore = 0;
+            int countAfter = 0;
             List<string> result = new List<string>();
-            int num = 1;
-            for (int i = 0; i < lines.Length; i++)
+
+            // Читаем файл через StreamReader
+            using (StreamReader reader = new StreamReader(fileSource))
             {
-                if (lines[i].Trim() != "")
+                string line;
+                int num = 1;
+
+                while ((line = reader.ReadLine()) != null)
                 {
-                    result.Add($"{num}. {lines[i].ToUpper()}");
-                    num++;
+                    countBefore++;  // Считаем все строки
+                    // Обработка: если строка не пустая (после удаления пробелов)
+                    if (line.Trim() != "")
+                    {
+                        // Добавляем номер и переводим в верхний регистр
+                        result.Add($"{num}. {line.ToUpper()}");
+                        num++;
+                    }
+                }
+    
+                countAfter = result.Count;  // Сколько строк осталось после обработки
+            }
+
+            // Сохраняем через StreamWriter
+            using (StreamWriter writer = new StreamWriter(fileResult))
+            {
+                foreach (string processedLine in result)
+                {
+                    writer.WriteLine(processedLine);  // Записываем каждую обработанную строку
                 }
             }
-            // Сохраняем
-            File.WriteAllLines(fileResult, result);
 
             // Статистика
-            Console.WriteLine($"Строк до: {countBefore}");
-            Console.WriteLine($"Строк после: {result.Count}");
-            Console.WriteLine("\nПервые 3 строки:");
+            Console.WriteLine($"Строк до обработки: {countBefore}");
+            Console.WriteLine($"Строк после обработки: {countAfter}");
+            Console.WriteLine($"Удалено пустых строк: {countBefore - countAfter}");
+            Console.WriteLine("\nПервые 3 строки результата:");
 
-            for (int i = 0; i < 3 && i < result.Count; i++)
+            // Выводим первые 3 строки результата
+            int linesToShow = Math.Min(3, result.Count);  // На случай, если строк меньше 3
+            for (int i = 0; i < linesToShow; i++)
             {
                 Console.WriteLine(result[i]);
             }
