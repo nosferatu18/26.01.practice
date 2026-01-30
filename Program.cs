@@ -122,8 +122,8 @@ namespace _26._01_пракимческая_работа
 
 
             //4 задание конвертер текста
-            string fileSource = "C:\\Users\\242416\\Desktop\\Документы\\исходный.txt";
-            string fileResult = "C:\\Users\\242416\\Desktop\\Документы\\обработанный.txt";
+            string fileSource = "C:\\Users\\242416\\Documents\\4задание\\исходный.txt";
+            string fileResult = "C:\\Users\\242416\\Documents\\4задание\\обработанный.txt";
 
             // Читаем файл
             string[] lines = File.ReadAllLines(fileSource);
